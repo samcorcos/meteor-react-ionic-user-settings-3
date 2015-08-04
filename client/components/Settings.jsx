@@ -98,7 +98,9 @@ LoginForm = React.createClass({
           </label>
         </div>
         <div className="padding">
-          <button onClick={this.props.login.bind(null, this.state.user, this.state.pass)} className="button button-block button-positive" />
+          <button onClick={this.props.login.bind(null, this.state.user, this.state.pass)} className="button button-block button-positive">
+            Log in
+          </button>
         </div>
       </div>
     )
