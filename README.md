@@ -1,3 +1,3 @@
-# Meteor-React-Ionic Users and Settings-2
+# Meteor-React-Ionic Users and Settings-3
 
-This is the second part of users and settings.
+This is the third part of users and settings.
