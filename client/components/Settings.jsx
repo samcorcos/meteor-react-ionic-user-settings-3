@@ -2,7 +2,7 @@ Settings = React.createClass({
   render() {
     return (
       <div>
-        <Profile ionModal={this.props.ionModal} />
+        <Profile setModalState={this.props.setModalState} ionModal={this.props.ionModal} />
         <SettingsList ionModal={this.props.ionModal} />
       </div>
     )
@@ -56,9 +56,52 @@ LoggedIn = React.createClass({
 NotLoggedIn = React.createClass({
   login(user, pass) {
     Meteor.loginWithPassword(user, pass);
+    this.props.setModalState(false);
   },
   render() {
-    return <a>Login</a>
+    return <a onClick={this.props.ionModal.bind(null, "Log in", <LoginForm login={this.login}/>)}>Login</a>
+  }
+})
+
+LoginForm = React.createClass({
+  getInitialState() {
+    return {
+      user: "",
+      pass: ""
+    }
+  },
+  handleChange(input, e) {
+    if (input == "user") {
+      this.setState({
+        user: e.target.value
+      })
+    };
+    if (input == "pass") {
+      this.setState({
+       pass: e.target.value
+      })
+    }
+  },
+  render() {
+    var user = this.state.user;
+    var pass = this.state.pass;
+    return (
+      <div>
+        <div className="list">
+          <label className="item item-input">
+            <span className="input-label">Username</span>
+            <input value={user} type="text" onChange={this.handleChange.bind(this, "user")} />
+          </label>
+          <label className="item item-input">
+            <span className="input-label">Password</span>
+            <input value={pass} type="password" onChange={this.handleChange.bind(this, "pass")} />
+          </label>
+        </div>
+        <div className="padding">
+          <button onClick={this.props.login.bind(null, this.state.user, this.state.pass)} className="button button-block button-positive" />
+        </div>
+      </div>
+    )
   }
 })
 
